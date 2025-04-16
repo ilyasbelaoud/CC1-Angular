@@ -1,0 +1,24 @@
+<div class="app-container">
+  <header class="header">
+    <h1>{{ title }}</h1>
+    <nav class="main-nav">
+      <ul>
+        <li><a routerLink="/dashboard" routerLinkActive="active">Tableau de bord</a></li>
+        <li><a routerLink="/students" routerLinkActive="active">Étudiants</a></li>
+        <li><a routerLink="/teachers" routerLinkActive="active">Enseignants</a></li>
+        <li><a routerLink="/courses" routerLinkActive="active">Cours</a></li>
+        <li><a routerLink="/classrooms" routerLinkActive="active">Classes</a></li>
+        <li><a routerLink="/grades" routerLinkActive="active">Notes</a></li>
+        <li><a routerLink="/services" routerLinkActive="active">Services</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="main-content">
+    <router-outlet></router-outlet>
+  </main>
+
+  <footer class="footer">
+    <p>&copy; 2023 Système de Gestion Scolaire</p>
+  </footer>
+</div>

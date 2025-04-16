@@ -1,0 +1,47 @@
+<div class="students-container">
+  <h2>Gestion des Étudiants</h2>
+  
+  <div class="add-student-form">
+    <h3>Ajouter un Étudiant</h3>
+    <div class="form-group">
+      <label>Nom complet:</label>
+      <input type="text" [(ngModel)]="newStudent.name">
+    </div>
+    <button (click)="addStudent()">Ajouter</button>
+  </div>
+
+  <div class="students-list">
+    <h3>Liste des Étudiants</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nom</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let student of students">
+          <td>{{ student.id }}</td>
+          <td>{{ student.name }}</td>
+          <td>
+            <button (click)="selectStudent(student)">Modifier</button>
+            <button (click)="deleteStudent(student.id)">Supprimer</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div *ngIf="isEditing && selectedStudent" class="edit-student">
+    <h3>Modifier l'Étudiant</h3>
+    <div class="form-group">
+      <label>Nom complet:</label>
+      <input type="text" [(ngModel)]="selectedStudent.name">
+    </div>
+    <div class="button-group">
+      <button (click)="saveStudent()">Enregistrer</button>
+      <button (click)="cancelEdit()">Annuler</button>
+    </div>
+  </div>
+</div> 

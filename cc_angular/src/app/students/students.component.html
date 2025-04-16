@@ -1,0 +1,61 @@
+<div class="students-container">
+  <div class="header-actions">
+    <h2>Gestion des étudiants</h2>
+    <a routerLink="/students/new" class="btn btn-primary">Ajouter un étudiant</a>
+  </div>
+  
+  <div class="search-box">
+    <input 
+      type="text" 
+      [(ngModel)]="searchTerm" 
+      placeholder="Rechercher un étudiant..." 
+      (keyup.enter)="searchStudents()"
+    >
+    <button (click)="searchStudents()" class="btn btn-search">Rechercher</button>
+  </div>
+  
+  <div *ngIf="isLoading" class="loading">
+    Chargement des étudiants...
+  </div>
+  
+  <div *ngIf="!isLoading && students.length === 0" class="no-results">
+    Aucun étudiant trouvé
+  </div>
+  
+  <div *ngIf="!isLoading && students.length > 0" class="students-list">
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nom</th>
+          <th>Cours</th>
+          <th>Services</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let student of students">
+          <td>{{ student.id }}</td>
+          <td>{{ student.name }}</td>
+          <td>
+            <span *ngIf="student.courses.length === 0">Aucun cours</span>
+            <span *ngIf="student.courses.length > 0">
+              {{ student.courses.map(c => c.name).join(', ') }}
+            </span>
+          </td>
+          <td>
+            <span *ngIf="student.services.length === 0">Aucun service</span>
+            <span *ngIf="student.services.length > 0">
+              {{ student.services.map(s => s.name).join(', ') }}
+            </span>
+          </td>
+          <td class="actions">
+            <a [routerLink]="['/students', student.id]" class="btn btn-view">Détails</a>
+            <a [routerLink]="['/students', student.id, 'edit']" class="btn btn-edit">Modifier</a>
+            <button (click)="deleteStudent(student.id)" class="btn btn-delete">Supprimer</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div> 

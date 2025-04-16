@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>School Management System</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+      background-color: #f5f5f5;
+    }
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      background-color: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #eee;
+      margin-bottom: 20px;
+    }
+    h1 {
+      color: #2c3e50;
+      margin-top: 0;
+    }
+    .section {
+      margin-bottom: 20px;
+      padding: 15px;
+      border: 1px solid #e0e0e0;
+      border-radius: 4px;
+    }
+    .section-title {
+      margin-top: 0;
+      color: #3498db;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .section-title i {
+      margin-right: 10px;
+    }
+    .log-container {
+      background-color: #f8f9fa;
+      padding: 10px;
+      border-radius: 4px;
+      border: 1px solid #dee2e6;
+      height: 200px;
+      overflow-y: auto;
+      font-family: monospace;
+    }
+    .items-list {
+      list-style-type: none;
+      padding-left: 0;
+    }
+    .items-list li {
+      padding: 10px;
+      margin-bottom: 8px;
+      border-radius: 4px;
+      background-color: #f8f9fa;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+    .button {
+      background-color: #3498db;
+      color: white;
+      border: none;
+      padding: 6px 12px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+    .button:hover {
+      background-color: #2980b9;
+    }
+    .dashboard-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1><i class="fas fa-school"></i> School Management System</h1>
+      <button id="refresh-btn" class="button"><i class="fas fa-sync"></i> Refresh Data</button>
+    </div>
+    
+    <div class="section">
+      <h2 class="section-title"><i class="fas fa-info-circle"></i> System Status</h2>
+      <div id="status">Initializing...</div>
+    </div>
+    
+    <div class="dashboard-grid">
+      <div class="section">
+        <h2 class="section-title">
+          <div><i class="fas fa-user-graduate"></i> Students</div>
+          <button class="button"><i class="fas fa-plus"></i> Add</button>
+        </h2>
+        <div id="students-list"></div>
+      </div>
+      
+      <div class="section">
+        <h2 class="section-title">
+          <div><i class="fas fa-chalkboard-teacher"></i> Teachers</div>
+          <button class="button"><i class="fas fa-plus"></i> Add</button>
+        </h2>
+        <div id="teachers-list"></div>
+      </div>
+      
+      <div class="section">
+        <h2 class="section-title">
+          <div><i class="fas fa-book"></i> Courses</div>
+          <button class="button"><i class="fas fa-plus"></i> Add</button>
+        </h2>
+        <div id="courses-list"></div>
+      </div>
+      
+      <div class="section">
+        <h2 class="section-title">
+          <div><i class="fas fa-boxes"></i> Resources</div>
+          <button class="button"><i class="fas fa-plus"></i> Add</button>
+        </h2>
+        <div id="resources-list"></div>
+      </div>
+    </div>
+    
+    <div class="section">
+      <h2 class="section-title"><i class="fas fa-terminal"></i> System Log</h2>
+      <div id="log" class="log-container"></div>
+    </div>
+  </div>
+  
+  <div id="app"></div>
+</body>
+</html>
