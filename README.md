@@ -1,199 +1,222 @@
-# CC1-Angular - School Management System
 
-## Description
 
-This project is a School Management System built using Angular 19 and TypeScript. It demonstrates the implementation of various design patterns to create a modular, maintainable, and extensible application for managing educational institutions.
 
-The system provides comprehensive functionality for managing students, teachers, courses, classrooms, grades, and school resources through a well-structured architecture.
+# School Management System
+
+A comprehensive TypeScript-based application for managing school resources, students, courses, and services using modern design patterns and IndexedDB for data persistence.
+
+## Table of Contents
+
+- [Overview](#overview)
+- [Features](#features)
+- [Technology Stack](#technology-stack)
+- [Architecture](#architecture)
+- [Design Patterns](#design-patterns)
+- [Project Structure](#project-structure)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Development](#development)
+- [API Documentation](#api-documentation)
+- [Database Schema](#database-schema)
+- [Testing](#testing)
+- [Deployment](#deployment)
+- [Contributing](#contributing)
+- [License](#license)
+- [Acknowledgments](#acknowledgments)
+
+## Overview
+
+This School Management System provides a complete solution for educational institutions to manage:
+- Student enrollment and records
+- Course creation and scheduling
+- Teacher assignments
+- Resource management (classrooms, equipment, supplies)
+- Additional student services (tutoring, extracurricular activities)
 
 ## Features
 
-### Core Functionality
-- **Student Management**: Registration, course enrollment, service subscription
-- **Teacher Management**: Profile creation, specialty assignment, course assignment
-- **Course Management**: Different course types with dedicated teachers
-- **Resource Management**: Tracking and allocation of school resources (classrooms, equipment, supplies)
-- **Grade Tracking**: Recording and retrieving student grades
-- **Classroom Management**: Scheduling and assignment
-
-### Additional Services
-- **Tutoring Services**: Extra academic support for specific subjects
-- **Sports Services**: Athletic activities and programs
-- **Arts Services**: Creative and cultural activities
-
-## Architecture & Design Patterns
-
-### 1. Singleton Pattern
-- **Implementation**: `ResourceManager` in `src/patterns/singleton/ResourceManager.ts`
-- **Purpose**: Ensures a single access point for managing school resources
-- **Key Methods**:
-  - `getInstance()`: Returns the singleton instance
-  - `addResource()`, `allocateResource()`, `releaseResource()`: Resource management operations
-
-### 2. Factory Pattern
-- **Implementation**: `CourseFactory` in `src/patterns/factory/CourseFactory.ts`
-- **Purpose**: Creates different types of courses without exposing creation logic
-- **Available Course Types**:
-  - Mathematics, Science, History, Language, Art, Physical Education
-
-### 3. Decorator Pattern
-- **Implementation**: `TutoringDecorator`, `SportsDecorator`, `ArtsDecorator` in `src/patterns/decorator/`
-- **Purpose**: Dynamically adds services to students
-- **Key Methods**:
-  - `applyService()`: Adds a service to a student
-  - `removeService()`: Removes a service from a student
-
-### 4. DAO (Data Access Object) Pattern
-- **Implementation**: Various DAO classes in `src/dao/`
-- **Components**:
-  - `StudentDao`: Manages student data
-  - `TeacherDao`: Manages teacher data
-  - `CourseDao`: Manages course data
-  - `ResourceDao`: Manages resource data
-  - `GradeDao`: Manages grade data
-  - `ClassroomDao`: Manages classroom data
-- **Interface**: `IDao` defining common CRUD operations
-
-### 5. Dependency Injection
-- **Implementation**: Services receive dependencies through constructors
-- **Example**: `StudentService` receives `StudentDao` in its constructor
-
-## Data Models
-
-### Core Entities
-- **Student**: Represents a student with personal information, enrolled courses, and services
-  - Properties: id, name, enrolledCourses, services
-  
-- **Teacher**: Represents a teacher with specialty information
-  - Properties: id, name, specialization
-  
-- **Course**: Represents a course with name and teacher assignment
-  - Properties: id, name, teacher
-  
-- **Resource**: Represents physical resources
-  - Properties: id, name, type, quantity
-  
-- **Grade**: Represents student performance in courses
-  - Properties: id, studentId, courseId, value, date
-  
-- **Classroom**: Represents physical learning spaces
-  - Properties: id, name, capacity, teacherId
-
-### Service Layer
-- **StudentService**: Handles business logic for student operations
-- **TeacherService**: Manages teacher-related operations
-- **CourseService**: Handles course creation and management
-- **GradeService**: Manages grade recording and retrieval
-- **ClassroomService**: Handles classroom allocation and management
+- **Student Management**: Register, update, and track student information
+- **Course Management**: Create different types of courses with specific requirements
+- **Teacher Assignment**: Assign teachers to courses based on specialties
+- **Resource Allocation**: Track and manage school resources
+- **Service Add-ons**: Dynamically add services like tutoring or extracurricular activities to student profiles
+- **Data Persistence**: Store all entities in IndexedDB for offline capability
 
 ## Technology Stack
 
-- **Frontend Framework**: Angular 19
-- **Language**: TypeScript
-- **State Management**: RxJS
-- **Storage**: IndexedDB (for local persistence)
-- **Build Tools**: Webpack
-- **Development Server**: Webpack Dev Server
+- **TypeScript**: Strongly-typed JavaScript for better code quality
+- **IndexedDB**: Browser-based NoSQL database for client-side storage
+- **Webpack**: Module bundler for application building
+- **Angular**: Frontend framework for UI components
+- **RxJS**: Reactive programming library for handling asynchronous operations
 
-Structuration :
-cc_angular/
-├── src/
-│ ├── app/ # Angular components
-│ │ ├── components/ # Reusable UI components
-│ │ ├── students/ # Student-related components
-│ │ ├── teachers/ # Teacher-related components
-│ │ ├── courses/ # Course-related components
-│ │ ├── classrooms/ # Classroom-related components
-│ │ ├── grades/ # Grade-related components
-│ │ ├── services/ # Service components
-│ │ ├── dashboard/ # Main dashboard
-│ │ └── app.component.ts # Root component
-│ ├── models/ # Data models
-│ │ ├── Student.ts
-│ │ ├── Teacher.ts
-│ │ ├── Course.ts
-│ │ ├── Resource.ts
-│ │ ├── Grade.ts
-│ │ ├── Classroom.ts
-│ │ ├── Service.ts
-│ │ └── Entity.ts
-│ ├── dao/ # Data Access Objects
-│ │ ├── IDao.ts # DAO interface
-│ │ ├── StudentDao.ts
-│ │ ├── TeacherDao.ts
-│ │ ├── CourseDao.ts
-│ │ ├── ResourceDao.ts
-│ │ ├── GradeDao.ts
-│ │ └── ClassroomDao.ts
-│ ├── patterns/ # Design pattern implementations
-│ │ ├── singleton/ # Singleton pattern
-│ │ ├── factory/ # Factory pattern
-│ │ ├── decorator/ # Decorator pattern
-│ │ └── services/ # Service classes
-│ ├── utils/ # Utility functions
-│ │ └── IndexedDBHelper.ts # Database helper
-│ ├── App.ts # Main application class
-│ ├── index.html # Entry HTML
-│ └── main.ts # Entry point
-├── public/ # Static assets
-├── dist/ # Build output
-├── package.json # Dependencies and scripts
-├── tsconfig.json # TypeScript configuration
-└── webpack.config.js # Webpack configuration
-Apply to README.md
+## Architecture
 
+The application follows a modular architecture with clear separation of concerns:
 
+- **Models**: Define data structures for core entities
+- **DAOs (Data Access Objects)**: Handle database operations
+- **Services**: Implement business logic
+- **Patterns**: Implement design patterns for specific requirements
+- **UI Components**: Handle user interaction
 
+## Design Patterns
 
+This project showcases the following design patterns:
+
+1. **Singleton Pattern**: 
+   - Used in `ResourceManager` to ensure a single point of access for school resources
+
+2. **Factory Pattern**:
+   - Implemented in `CourseFactory` to create different course types without exposing instantiation logic
+
+3. **Decorator Pattern**:
+   - Applied to dynamically add services to student profiles without modifying existing code
+
+4. **DAO Pattern**:
+   - Used for data access abstraction with IndexedDB
+
+5. **Dependency Injection**:
+   - Used for managing dependencies between services and components
+
+## Project Structure
+
+```
+src/
+├── models/         # Data models for core entities
+├── dao/            # Data Access Objects for IndexedDB operations
+├── services/       # Business logic services
+├── patterns/
+│   ├── singleton/  # Singleton implementation
+│   ├── factory/    # Factory pattern implementation
+│   ├── decorator/  # Decorator pattern implementation
+│   └── services/   # Service decorators
+├── utils/          # Utility functions
+├── app/            # Angular components
+├── App.ts          # Main application class
+├── index.ts        # Application entry point
+├── main.ts         # Bootstrap code
+└── index.html      # Main HTML template
+```
 
 ## Installation
 
 1. Clone the repository:
    ```
-   git clone https://github.com/yourusername/CC1-Angular.git
-   cd CC1-Angular
+   git clone [repository-url]
+   cd school-management-system
    ```
 
 2. Install dependencies:
    ```
-   cd cc_angular
    npm install
    ```
 
-## Running the Application
+## Usage
 
-1. Development server with hot-reloading:
-   ```
-   npm run dev
-   ```
-
-2. Build for production:
-   ```
-   npm run build
-   ```
-
-3. Start the application:
+1. Start the development server:
    ```
    npm start
    ```
 
-4. Access the application in your browser at: http://localhost:9000
+2. Open your browser and navigate to:
+   ```
+   http://localhost:9000
+   ```
 
-## Project Structure
+3. For production build:
+   ```
+   npm run build
+   ```
 
-- `src/models/`: Contains data models (Student, Teacher, Course, Resource)
-- `src/services/`: Business logic services
-- `src/dao/`: Data Access Objects for database operations
-- `src/patterns/`: Implementation of design patterns
-- `src/app/`: Angular components and modules
-- `src/utils/`: Utility functions and helpers
+## Development
 
-## Extending the System
+- **Adding a new course type**:
+  1. Create a new course class extending the base Course model
+  2. Add a factory method to CourseFactory
 
-- Add new course types through the CourseFactory
-- Create new services by extending BaseService
-- Add resource types by modifying the Resource model
+- **Adding a new service**:
+  1. Create a new service class extending BaseService
+  2. Implement the required methods
+
+- **Extending data models**:
+  1. Update the model class
+  2. Update corresponding DAO to handle new properties
+
+## API Documentation
+
+### Core Models
+
+- **Student**: Represents a student with enrollment information
+- **Teacher**: Represents a teacher with subject specializations
+- **Course**: Base class for all course types
+- **Resource**: Represents physical resources in the school
+
+### Key Services
+
+- **StudentService**: Handles student registration and management
+- **CourseService**: Manages course creation and scheduling
+- **TeacherService**: Handles teacher assignment and management
+- **ResourceManager**: Singleton for managing school resources
+
+## Database Schema
+
+### IndexedDB Structure
+The application uses IndexedDB with the following object stores:
+- `students`: Stores student records
+- `teachers`: Stores teacher information
+- `courses`: Stores course data
+- `resources`: Stores school resource information
+
+Each store implements versioned schema migrations for future-proofing.
+
+## Testing
+
+1. Run unit tests:
+   ```
+   npm test
+   ```
+
+2. Run end-to-end tests:
+   ```
+   npm run e2e
+   ```
+
+3. Generate code coverage report:
+   ```
+   npm run test:coverage
+   ```
+
+## Deployment
+
+### Development Environment
+```
+npm run dev
+```
+
+### Production Deployment
+1. Build the production bundle:
+   ```
+   npm run build
+   ```
+
+2. Deploy the contents of the `dist` folder to your web server
+
+## Contributing
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
 
 ## License
 
-ISC
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+## Acknowledgments
+
+- Design patterns inspired by "Design Patterns: Elements of Reusable Object-Oriented Software"
+- IndexedDB implementation based on best practices from Mozilla Developer Network
+- Angular architecture following official Angular documentation
+
